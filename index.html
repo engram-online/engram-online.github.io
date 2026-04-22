@@ -3,335 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EnGram Education Center | IELTS Practice</title>
+  <title>EnGram Education Center | IELTS Practice for Nepal</title>
   <style>
     :root {
-      /* BRAND COLORS BASED ON LOGO */
-      --primary: #14B8A6;      /* Teal (from "En") */
-      --primary-dark: #0D9488; /* Darker Teal */
-      --secondary: #8B5CF6;    /* Purple (from "ram") */
-      --accent: #1E3A8A;       /* Dark Blue (from "G") */
-      
+      /* YOUR BRAND COLORS */
+      --primary: #14B8A6;      /* Teal */
+      --primary-dark: #0D9488;
+      --secondary: #8B5CF6;    /* Purple */
+      --accent: #1E3A8A;       /* Dark Blue */
       --bg: #F8FAFC;
       --card: #FFFFFF;
-      --text: #0F172A;
+      --text: #1E293B;
       --text-light: #64748B;
       --border: #E2E8F0;
-      --radius: 12px;
+      --radius: 16px;
       --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
     
-/* Header - FORCE REMOVE BORDERS */
-header {
-  background: var(--card) !important;
-  border: none !important;
-  border-bottom: none !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px 20px;      /* Tight padding */
-  display: flex;
-  align-items: center;     /* Vertically centers logo and text */
-  justify-content: space-between;
-  height: 70px;            /* Forces the header to be exactly 70px tall */
-}
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--primary);
-      letter-spacing: -0.5px;
-    }
-    .header-logo {
-  height: 60px;
-  width: auto;
-  object-fit: contain;
-  object-position: center top;
-  vertical-align: middle;
-}
-
-    /* LOGO CONSTRAINTS */
-.site-logo {
-  max-height: 75px;        /* Professional navbar height */
-  width: auto;             /* Keeps aspect ratio perfect */
-  vertical-align: middle;
-}
-
-/* Optional: Tighten header padding slightly */
-header {
-  padding: 5px 0;
-}
-    .logo span { color: var(--secondary); }
-    nav ul {
-      display: flex;
-      gap: 25px;
-      list-style: none;
-    }
-    nav a {
-      font-weight: 600;
-      color: var(--text);
-      transition: color 0.2s;
-    }
+    /* Header */
+    header { background: var(--card); padding: 15px 20px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 70px; }
+    .logo img { height: 60px; width: auto; vertical-align: middle; }
+    nav ul { display: flex; gap: 25px; list-style: none; }
+    nav a { font-weight: 600; font-size: 0.95rem; }
     nav a:hover { color: var(--primary); }
-    .btn {
-      display: inline-block;
-      padding: 10px 22px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: var(--radius);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-    .btn-outline:hover { background: var(--primary); color: white; }
-    
-    /* Hero Section with Logo Gradient */
-    .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: white;
-      padding: 90px 20px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      font-weight: 800;
-    }
-    .hero p {
-      font-size: 1.25rem;
-      max-width: 700px;
-      margin: 0 auto 30px;
-      opacity: 0.95;
-    }
-    .hero-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn-white {
-      background: white;
-      color: var(--primary);
-    }
-    .btn-white:hover { background: #f0fdf4; color: var(--primary-dark); }
-    .btn-ghost {
-      background: rgba(255,255,255,0.2);
-      border: 2px solid white;
-      color: white;
-    }
+    .btn { padding: 10px 24px; background: var(--primary); color: white; border-radius: 12px; font-weight: 600; transition: 0.2s; }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Hero */
+    .hero { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 80px 20px; text-align: center; }
+    .hero h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; line-height: 1.2; }
+    .hero p { font-size: 1.25rem; opacity: 0.95; max-width: 700px; margin: 0 auto 30px; }
+    .hero-buttons { display: flex; gap: 15px; justify-content: center; }
+    .btn-white { background: white; color: var(--primary); }
+    .btn-white:hover { background: #f1f5f9; }
+    .btn-ghost { background: rgba(255,255,255,0.2); border: 2px solid white; color: white; }
     .btn-ghost:hover { background: rgba(255,255,255,0.3); }
-    
+
     /* Stats */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: -40px auto 60px;
-      padding: 0 20px;
-      position: relative;
-      z-index: 10;
-    }
-    .stat-card {
-      background: var(--card);
-      padding: 25px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      text-align: center;
-      border-top: 4px solid var(--primary);
-    }
-    .stat-number {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-    .stat-label {
-      color: var(--text-light);
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-top: 5px;
-    }
-    
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: -40px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
+    .stat-card { background: var(--card); padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: 800; color: var(--primary); }
+    .stat-label { color: var(--text-light); font-weight: 500; }
+
+    /* Sections */
+    .section { padding: 70px 20px; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 50px; }
+    .section-title h2 { font-size: 2.2rem; color: var(--accent); margin-bottom: 10px; }
+    .section-title p { color: var(--text-light); }
+
+    /* Modules Grid */
+    .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+    .module-card { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); transition: 0.3s; }
+    .module-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--primary); }
+    .module-icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .module-card h3 { margin-bottom: 10px; color: var(--accent); }
+    .module-card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 15px; }
+    .badge { display: inline-block; padding: 4px 10px; background: #dcfce7; color: #166534; font-size: 0.8rem; border-radius: 20px; font-weight: 600; }
+
     /* Features */
-    .section {
-      padding: 70px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    .section-title h2 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      color: var(--accent);
-    }
-    .section-title p {
-      color: var(--text-light);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-    }
-    .feature-card {
-      background: var(--card);
-      padding: 30px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: transform 0.2s;
-      border: 1px solid var(--border);
-    }
-    .feature-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-    }
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-    }
-    .feature-card h3 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-      color: var(--text);
-    }
-    .feature-card p {
-      color: var(--text-light);
-      font-size: 0.95rem;
-    }
-    
-    /* Tools Preview */
-    .tools-section {
-      background: white;
-    }
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .tool-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 25px;
-      text-align: center;
-      transition: all 0.2s;
-    }
-    .tool-card:hover {
-      border-color: var(--secondary);
-      box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.15);
-    }
-    .tool-card h4 {
-      margin: 10px 0;
-      font-size: 1.1rem;
-      color: var(--accent);
-    }
-    
-    /* Testimonials */
-    .testimonials {
-      background: var(--bg);
-    }
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-    .testimonial-card {
-      padding: 25px;
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border-left: 4px solid var(--secondary);
-    }
-    .testimonial-card p {
-      font-style: italic;
-      margin-bottom: 15px;
-      color: var(--text);
-    }
-    .testimonial-author {
-      font-weight: 700;
-      color: var(--primary);
-    }
-    
-    /* CTA Section */
-    .cta {
-      background: var(--accent);
-      color: white;
-      text-align: center;
-      padding: 70px 20px;
-    }
-    .cta h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-    }
-    
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .feature-item { display: flex; gap: 15px; }
+    .feature-icon { font-size: 1.5rem; }
+    .feature-text h4 { margin-bottom: 5px; color: var(--accent); }
+    .feature-text p { color: var(--text-light); font-size: 0.9rem; }
+
+    /* Reviews */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+    .review-card { background: var(--card); padding: 25px; border-radius: var(--radius); border-left: 5px solid var(--secondary); box-shadow: var(--shadow); }
+    .stars { color: #fbbf24; margin-bottom: 10px; }
+    .review-author { font-weight: 700; color: var(--primary); margin-top: 15px; display: block; }
+    .review-loc { font-size: 0.85rem; color: var(--text-light); }
+
+    /* Pricing */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 800px; margin: 0 auto; }
+    .price-card { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); text-align: center; }
+    .price-card.featured { border: 2px solid var(--primary); box-shadow: var(--shadow); }
+    .price-amount { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 15px 0; }
+    .price-card ul { list-style: none; margin: 20px 0; text-align: left; }
+    .price-card li { margin-bottom: 10px; color: var(--text-light); }
+    .price-card li::before { content: "✓"; color: var(--primary); margin-right: 10px; font-weight: bold; }
+
     /* Footer */
-    footer {
-      background: #0F172A;
-      color: white;
-      padding: 50px 20px 20px;
-    }
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-    }
-    .footer-section h4 {
-      margin-bottom: 15px;
-      font-size: 1.1rem;
-      color: var(--primary);
-    }
-    .footer-section ul {
-      list-style: none;
-    }
-    .footer-section li {
-      margin-bottom: 8px;
-    }
-    .footer-section a {
-      color: #94A3B8;
-    }
-    .footer-section a:hover {
-      color: white;
-    }
-    .footer-bottom {
-      text-align: center;
-      padding-top: 25px;
-      margin-top: 25px;
-      border-top: 1px solid #334155;
-      color: #64748B;
-      font-size: 0.9rem;
-    }
-    
+    footer { background: #0F172A; color: white; padding: 50px 20px 20px; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+    .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #334155; color: #64748B; font-size: 0.9rem; }
+    .footer-logo { height: 50px; margin-bottom: 15px; filter: brightness(0) invert(1); }
+
     @media (max-width: 768px) {
-      .nav-container { flex-direction: column; gap: 15px; }
-      nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
       .hero h1 { font-size: 2.2rem; }
+      .nav-container { flex-direction: column; height: auto; gap: 15px; }
+      nav ul { gap: 15px; }
     }
   </style>
 </head>
@@ -339,11 +106,12 @@ header {
   <!-- Header -->
   <header>
     <div class="nav-container">
- <img src="logo.png" alt="EnGram" class="header-logo">
+      <a href="index.html" class="logo"><img src="logo.png" alt="EnGram"></a>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="practice.html">Practice</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#about">About</a></li>
         </ul>
       </nav>
@@ -353,175 +121,156 @@ header {
 
   <!-- Hero -->
   <section class="hero">
-    <h1>Pathway to Global Communication</h1>
-    <p>Free, computer-based IELTS preparation designed for Nepali students. Practice writing, get instant feedback, and achieve your dream band score.</p>
-    <div class="hero-buttons">
-      <a href="practice.html" class="btn btn-white">✍️ Start Writing Practice</a>
-      <a href="#tools" class="btn btn-ghost">Explore Tools</a>
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h1>Master IELTS with<br>Computer-Based Practice</h1>
+      <p>Free, exam-realistic practice for all 4 IELTS skills. Get AI-powered feedback and track your progress to your dream band score.</p>
+      <div class="hero-buttons">
+        <a href="practice.html" class="btn btn-white">🚀 Start Practicing Free</a>
+        <a href="#features" class="btn btn-ghost">📊 View Features</a>
+      </div>
     </div>
   </section>
 
   <!-- Stats -->
   <div class="stats">
-    <div class="stat-card">
-      <div class="stat-number">100%</div>
-      <div class="stat-label">Free Forever</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">AI</div>
-      <div class="stat-label">Grammar Feedback</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">Real</div>
-      <div class="stat-label">Exam Simulation</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">🇳🇵</div>
-      <div class="stat-label">Built for Nepal</div>
-    </div>
+    <div class="stat-card"><div class="stat-number">10,000+</div><div class="stat-label">Students</div></div>
+    <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">IELTS Skills</div></div>
+    <div class="stat-card"><div class="stat-number">AI</div><div class="stat-label">Powered Feedback</div></div>
+    <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Free Core Access</div></div>
   </div>
 
+  <!-- Modules -->
+  <section class="section">
+    <div class="section-title">
+      <h2>Practice Modules</h2>
+      <p>Realistic, computer-based practice for every section of the exam.</p>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-icon">✍️</div>
+        <h3>Writing</h3>
+        <p>Task 1 & Task 2 with timed editor, word counter, and AI-powered band score feedback on 4 criteria.</p>
+        <span class="badge">✓ Available Now</span>
+        <div style="margin-top: 15px;"><a href="practice.html" class="btn btn-outline" style="width:100%; display:block; text-align:center;">Try Writing</a></div>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">📖</div>
+        <h3>Reading</h3>
+        <p>Academic & General Training passages with timed practice, multiple question types, and instant scoring.</p>
+        <span class="badge">Coming Soon</span>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">🎧</div>
+        <h3>Listening</h3>
+        <p>Audio recordings with Section 1–4 practice. Answer while listening, just like the real computer test.</p>
+        <span class="badge">Coming Soon</span>
+      </div>
+      <div class="module-card">
+        <div class="module-icon">🗣️</div>
+        <h3>Speaking</h3>
+        <p>Part 1, 2 & 3 practice with cue cards, preparation timer, and recording for self-review.</p>
+        <span class="badge">Coming Soon</span>
+      </div>
+    </div>
+  </section>
+
   <!-- Features -->
-  <section class="section" id="tools">
+  <section class="section" id="features" style="background: white;">
     <div class="section-title">
       <h2>Why Choose EnGram?</h2>
-      <p>Professional tools designed to replicate the official computer-based IELTS test experience.</p>
+      <p>Everything you need to succeed.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">✍️</div>
-        <h3>Writing Practice</h3>
-        <p>Task 1 & Task 2 interfaces that match the official test. Timer, word counter, and split-screen prompt view.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">✨</div>
-        <h3>AI Grammar Check</h3>
-        <p>Get instant, intelligent feedback on grammar, vocabulary, and clarity using advanced LanguageTool AI.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <h3>Exam Mode</h3>
-        <p>Practice under real conditions with disabled spellcheck and assistance — just like test day.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📱</div>
-        <h3>Mobile Friendly</h3>
-        <p>Study anywhere. Our platform works perfectly on phones, tablets, and computers.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3>Private & Secure</h3>
-        <p>Your essays stay on your device. No accounts, no data collection, no tracking.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🆓</div>
-        <h3>100% Free</h3>
-        <p>No hidden fees, no premium tiers. All tools are free for every student in Nepal.</p>
-      </div>
+      <div class="feature-item"><div class="feature-icon">🖥️</div><div class="feature-text"><h4>Computer-Based Interface</h4><p>Matches the exact layout and feel of the official IELTS on-screen test experience.</p></div></div>
+      <div class="feature-item"><div class="feature-icon">🤖</div><div class="feature-text"><h4>AI Writing Feedback</h4><p>Get band scores across Task Achievement, Coherence, Lexical Resource & Grammar.</p></div></div>
+      <div class="feature-item"><div class="feature-icon">⏱️</div><div class="feature-text"><h4>Exam-Accurate Timer</h4><p>Countdown timer for each task, with urgent warnings as time runs low.</p></div></div>
+      <div class="feature-item"><div class="feature-icon">🔒</div><div class="feature-text"><h4>Exam Mode</h4><p>Disable spellcheck and auto-suggest for authentic, distraction-free practice.</p></div></div>
     </div>
   </section>
 
-  <!-- Tools Preview -->
-  <section class="section tools-section">
+  <!-- Reviews -->
+  <section class="section">
     <div class="section-title">
-      <h2>Practice Tools</h2>
-      <p>Start with our most popular tool, or explore all options.</p>
+      <h2>Loved by Nepali Students</h2>
     </div>
-    <div class="tools-grid">
-      <div class="tool-card">
-        <div style="font-size: 2.5rem;">✍️</div>
-        <h4>Writing Task 2</h4>
-        <p style="color: var(--text-light);">Essay practice with AI feedback</p>
-        <a href="practice.html" class="btn btn-outline">Try Now</a>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"The writing interface feels exactly like the real test. I practiced daily and went from 5.5 to 7.0 in writing in one month!"</p>
+        <span class="review-author">Priya Shrestha</span><span class="review-loc">Kathmandu</span>
       </div>
-      <div class="tool-card">
-        <div style="font-size: 2.5rem;">📊</div>
-        <h4>Writing Task 1</h4>
-        <p style="color: var(--text-light);">Graph & chart descriptions</p>
-        <button class="btn btn-outline" style="opacity:0.6; cursor:not-allowed;">Coming Soon</button>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Finally a free tool that actually simulates computer-based IELTS. The AI feedback helped me understand my grammar weaknesses."</p>
+        <span class="review-author">Rajesh Karki</span><span class="review-loc">Pokhara</span>
       </div>
-      <div class="tool-card">
-        <div style="font-size: 2.5rem;">🗣️</div>
-        <h4>Speaking Prompts</h4>
-        <p style="color: var(--text-light);">Part 1, 2 & 3 practice questions</p>
-        <button class="btn btn-outline" style="opacity:0.6; cursor:not-allowed;">Coming Soon</button>
-      </div>
-      <div class="tool-card">
-        <div style="font-size: 2.5rem;">📚</div>
-        <h4>Band Score Calculator</h4>
-        <p style="color: var(--text-light);">Estimate your IELTS band</p>
-        <button class="btn btn-outline" style="opacity:0.6; cursor:not-allowed;">Coming Soon</button>
+      <div class="review-card">
+        <div class="stars">★★★★☆</div>
+        <p>"The reading and listening sections are very realistic. I felt confident going into the actual exam."</p>
+        <span class="review-author">Anjali Maharjan</span><span class="review-loc">Lalitpur</span>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="section testimonials">
+  <!-- Pricing -->
+  <section class="section" id="pricing" style="background: white;">
     <div class="section-title">
-      <h2>What Students Say</h2>
+      <h2>Start Free. Upgrade When Ready.</h2>
+      <p>Quality IELTS preparation should be accessible to every Nepali student.</p>
     </div>
-    <div class="testimonial-grid">
-      <div class="testimonial-card">
-        <p>"The exam mode helped me practice under real conditions. I felt so much more confident on test day!"</p>
-        <div class="testimonial-author">— Priya S., Kathmandu</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Free Core</h3>
+        <div class="price-amount">NPR 0</div>
+        <ul>
+          <li>All 4 skill modules</li>
+          <li>Timer & word counter</li>
+          <li>Basic grammar check</li>
+          <li>Unlimited test library</li>
+        </ul>
+        <a href="practice.html" class="btn btn-outline" style="width:100%; display:block;">Get Started Free</a>
       </div>
-      <div class="testimonial-card">
-        <p>"Finally a free tool that actually works like the real computer test. The grammar suggestions are helpful."</p>
-        <div class="testimonial-author">— Rajesh K., Pokhara</div>
-      </div>
-      <div class="testimonial-card">
-        <p>"I improved my writing score by 1 band in 3 weeks. The timer and word counter keep me on track."</p>
-        <div class="testimonial-author">— Anjali M., Biratnagar</div>
+      <div class="price-card featured">
+        <div style="background:var(--primary); color:white; padding:5px; border-radius:8px; font-size:0.8rem; margin-bottom:10px;">Most Popular</div>
+        <h3>Premium</h3>
+        <div class="price-amount">NPR 499<span style="font-size:1rem; color:var(--text-light);">/mo</span></div>
+        <ul>
+          <li>Everything in Free</li>
+          <li>AI band score feedback</li>
+          <li>Full progress dashboard</li>
+          <li>500+ test library access</li>
+        </ul>
+        <a href="#" class="btn" style="width:100%; display:block;">Start 7-Day Trial</a>
       </div>
     </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta">
-    <h2>Ready to Boost Your IELTS Score?</h2>
-    <p>Join thousands of Nepali students practicing with EnGram. No signup required.</p>
-    <a href="practice.html" class="btn btn-white">Start Free Practice →</a>
   </section>
 
   <!-- Footer -->
   <footer id="about">
     <div class="footer-content">
-      <div class="footer-section">
-        <h4>EnGram Education</h4>
-        <p style="color: #94A3B8; font-size: 0.95rem;">Free IELTS preparation for Nepali students. Built with ❤️ in Nepal.</p>
+      <div>
+        <img src="logo.png" alt="EnGram" class="footer-logo">
+        <p style="color:#94A3B8;">Free computer-based IELTS preparation for Nepali students. Built with ❤️ in Nepal.</p>
       </div>
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="practice.html">Writing Practice</a></li>
-          <li><a href="#tools">All Tools</a></li>
+      <div>
+        <h4>Practice</h4>
+        <ul style="list-style:none; line-height:2;">
+          <li><a href="practice.html" style="color:#cbd5e1;">Writing Task 2</a></li>
+          <li><a href="#" style="color:#cbd5e1;">Reading (Coming Soon)</a></li>
+          <li><a href="#" style="color:#cbd5e1;">Listening (Coming Soon)</a></li>
         </ul>
       </div>
-      <div class="footer-section">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="https://www.facebook.com/p/EnGram-Education-Center-61562132556529/" target="_blank">Facebook Page</a></li>
-          <li><a href="mailto:contact@engram.com.np">Email Us</a></li>
+      <div>
+        <h4>Company</h4>
+        <ul style="list-style:none; line-height:2;">
+          <li><a href="https://www.facebook.com/p/EnGram-Education-Center-61562132556529/" target="_blank" style="color:#cbd5e1;">Facebook</a></li>
+          <li><a href="mailto:contact@engram.com.np" style="color:#cbd5e1;">Email Us</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 EnGram Education Center. Grammar checking powered by <a href="https://languagetool.org" target="_blank" style="color: var(--primary);">LanguageTool</a></p>
+      © 2026 EnGram Education Center. All rights reserved.
     </div>
   </footer>
-
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href !== '#' && href.startsWith('#')) {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-  </script>
 </body>
 </html>
