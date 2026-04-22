@@ -30,22 +30,24 @@
     a { color: var(--primary); text-decoration: none; }
     a:hover { text-decoration: underline; }
     
-    /* Header */
-    header {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+   /* Header - Updated */
+header {
+  background: var(--card);
+  border-bottom: none; /* REMOVES THE LINE */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Adds a soft, premium shadow */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px; /* Tightens the header (was 15px) */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
     .logo {
       font-size: 1.6rem;
       font-weight: 800;
