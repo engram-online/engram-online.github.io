@@ -22,15 +22,30 @@
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
     a { text-decoration: none; color: inherit; }
     
-    /* HEADER - FIXED LOGO & TIGHT LAYOUT */
-    header { 
-      background: var(--card); 
-      border-bottom: 1px solid var(--border); 
-      position: sticky; 
-      top: 0; 
-      z-index: 100; 
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
+<!-- CLEAN HEADER WITH LOGO -->
+<header style="background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100;">
+  <div class="nav-container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 75px;">
+    
+    <!-- YOUR LOGO IMAGE (Resized) -->
+    <a href="#home" style="display: flex; align-items: center; text-decoration: none;">
+      <img src="logo.png" alt="EnGram" style="height: 55px; width: auto; display: block;">
+    </a>
+
+    <!-- NAVIGATION -->
+    <nav>
+      <ul style="display: flex; gap: 30px; list-style: none; margin: 0; padding: 0;">
+        <li><a href="#home" style="font-weight: 600; color: #1E3A8A; text-decoration: none;">Home</a></li>
+        <li><a href="#practice" style="font-weight: 600; color: #64748B; text-decoration: none;">Practice</a></li>
+        <li><a href="#dashboard" style="font-weight: 600; color: #64748B; text-decoration: none;">Dashboard</a></li>
+        <li><a href="#pricing" style="font-weight: 600; color: #64748B; text-decoration: none;">Pricing</a></li>
+      </ul>
+    </nav>
+
+    <!-- BUTTON -->
+    <a href="#practice" class="btn" style="background: #3B82F6; padding: 10px 24px; border-radius: 8px; color: white; font-weight: 600; text-decoration: none; border: none;">Sign Up Free</a>
+
+  </div>
+</header>
     .nav-container { 
       max-width: 1200px; 
       margin: 0 auto; 
