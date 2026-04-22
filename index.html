@@ -52,6 +52,18 @@
       color: var(--primary);
       letter-spacing: -0.5px;
     }
+
+    /* LOGO CONSTRAINTS */
+.site-logo {
+  max-height: 75px;        /* Professional navbar height */
+  width: auto;             /* Keeps aspect ratio perfect */
+  vertical-align: middle;
+}
+
+/* Optional: Tighten header padding slightly */
+header {
+  padding: 5px 0;
+}
     .logo span { color: var(--secondary); }
     nav ul {
       display: flex;
@@ -316,7 +328,7 @@
   <!-- Header -->
   <header>
     <div class="nav-container">
-     <img src="logo.png" alt="EnGram Education Center" height="360" style="vertical-align: middle;">
+  <img src="logo.png" alt="EnGram Logo" class="site-logo">
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
