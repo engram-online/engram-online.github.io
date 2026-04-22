@@ -22,27 +22,27 @@
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
     a { text-decoration: none; color: inherit; }
     
-<!-- CLEAN HEADER WITH LOGO -->
 <header style="background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100;">
-  <div class="nav-container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 75px;">
+  <!-- This container forces everything to be in one row and centered -->
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 80px;">
     
-    <!-- YOUR LOGO IMAGE (Resized) -->
-    <a href="#home" style="display: flex; align-items: center; text-decoration: none;">
-      <img src="logo.png" alt="EnGram" style="height: 55px; width: auto; display: block;">
+    <!-- 1. LOGO (Set to 50px height so it fits perfectly) -->
+    <a href="#home" style="display: flex; align-items: center;">
+      <img src="logo.png" alt="EnGram" style="height: 50px; width: auto; display: block;">
     </a>
 
-    <!-- NAVIGATION -->
-    <nav>
-      <ul style="display: flex; gap: 30px; list-style: none; margin: 0; padding: 0;">
-        <li><a href="#home" style="font-weight: 600; color: #1E3A8A; text-decoration: none;">Home</a></li>
-        <li><a href="#practice" style="font-weight: 600; color: #64748B; text-decoration: none;">Practice</a></li>
-        <li><a href="#dashboard" style="font-weight: 600; color: #64748B; text-decoration: none;">Dashboard</a></li>
-        <li><a href="#pricing" style="font-weight: 600; color: #64748B; text-decoration: none;">Pricing</a></li>
-      </ul>
+    <!-- 2. NAVIGATION LINKS -->
+    <nav style="display: flex; gap: 30px;">
+      <a href="#home" style="font-weight: 600; color: #1E3A8A; text-decoration: none;">Home</a>
+      <a href="#practice" style="font-weight: 600; color: #64748B; text-decoration: none;">Practice</a>
+      <a href="#dashboard" style="font-weight: 600; color: #64748B; text-decoration: none;">Dashboard</a>
+      <a href="#pricing" style="font-weight: 600; color: #64748B; text-decoration: none;">Pricing</a>
     </nav>
 
-    <!-- BUTTON -->
-    <a href="#practice" class="btn" style="background: #3B82F6; padding: 10px 24px; border-radius: 8px; color: white; font-weight: 600; text-decoration: none; border: none;">Sign Up Free</a>
+    <!-- 3. BUTTON -->
+    <a href="#practice" style="background: #14B8A6; color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; display: block;">
+      Start Practicing
+    </a>
 
   </div>
 </header>
