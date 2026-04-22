@@ -1,980 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EnGram Education Center | IELTS Practice</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  :root{
-    --blue:#1a56db;--blue-dark:#1340b0;--blue-light:#e8f0fe;
-    --green:#0e9f6e;--orange:#ff6b35;--purple:#7c3aed;
-    --gray:#6b7280;--light:#f9fafb;--white:#fff;
-    --text:#111827;--border:#e5e7eb;
-    --shadow:0 4px 24px rgba(0,0,0,.08);
-  }
-  body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--text);background:var(--white)}
-  a{text-decoration:none;color:inherit}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EnGram Education Center | IELTS Practice</title>
+  <style>
+    :root {
+      --primary: #14B8A6;
+      --primary-dark: #0D9488;
+      --secondary: #8B5CF6;
+      --accent: #1E3A8A;
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --text: #1E293B;
+      --text-light: #64748B;
+      --border: #E2E8F0;
+      --radius: 16px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    
+    /* HEADER - FIXED LOGO & TIGHT LAYOUT */
+    header { 
+      background: var(--card); 
+      border-bottom: 1px solid var(--border); 
+      position: sticky; 
+      top: 0; 
+      z-index: 100; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      height: 90px; /* Fixed height for consistency */
+    }
+    .logo img { 
+      height: 85px; /* BIGGER LOGO */
+      width: auto; 
+      display: block;
+    }
+    nav ul { display: flex; gap: 30px; list-style: none; }
+    nav a { font-weight: 600; color: var(--text); font-size: 0.95rem; transition: 0.2s; }
+    nav a:hover { color: var(--primary); }
+    .btn { padding: 10px 24px; background: var(--primary); color: white; border-radius: 12px; font-weight: 600; transition: 0.2s; border: none; cursor: pointer; }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-  /* NAV */
-  nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px}
-  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;color:var(--blue)}
-  .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem}
-  .nav-links{display:flex;align-items:center;gap:2rem}
-  .nav-links a{font-size:.9rem;color:var(--gray);font-weight:500;transition:.2s}
-  .nav-links a:hover,.nav-links a.active{color:var(--blue)}
-  .nav-cta{background:var(--blue);color:#fff!important;padding:.45rem 1.1rem;border-radius:8px;font-size:.85rem!important}
-  .nav-cta:hover{background:var(--blue-dark)!important}
-  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-  .hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 80px 20px; text-align: center; }
+    .hero h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; line-height: 1.2; }
+    .hero p { font-size: 1.25rem; opacity: 0.95; max-width: 700px; margin: 0 auto 30px; }
+    .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--primary); }
+    .btn-white:hover { background: #f1f5f9; }
+    .btn-ghost { background: rgba(255,255,255,0.2); border: 2px solid white; color: white; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.3); }
 
-  /* PAGES */
-  .page{display:none}
-  .page.active{display:block}
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: -40px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
+    .stat-card { background: var(--card); padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; border-top: 4px solid var(--primary); }
+    .stat-number { font-size: 2rem; font-weight: 800; color: var(--primary); }
+    .stat-label { color: var(--text-light); font-weight: 500; }
 
-  /* HERO */
-  .hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 60%,#312e81 100%);color:#fff;padding:90px 5% 80px;text-align:center;position:relative;overflow:hidden}
-  .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:.35rem .9rem;font-size:.8rem;margin-bottom:1.5rem}
-  .hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.2;margin-bottom:1.2rem}
-  .hero h1 span{color:#93c5fd}
-  .hero p{font-size:1.1rem;color:#cbd5e1;max-width:600px;margin:0 auto 2.5rem}
-  .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.6rem;border-radius:10px;font-weight:600;font-size:.95rem;cursor:pointer;transition:.2s;border:none}
-  .btn-primary{background:var(--blue);color:#fff}
-  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
-  .btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}
-  .btn-outline:hover{background:rgba(255,255,255,.1)}
-  .hero-stats{display:flex;justify-content:center;gap:3rem;margin-top:4rem;flex-wrap:wrap}
-  .stat{text-align:center}
-  .stat strong{display:block;font-size:1.8rem;font-weight:800;color:#fff}
-  .stat span{font-size:.8rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}
+    /* SECTIONS */
+    .section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 50px; }
+    .section-title h2 { font-size: 2.2rem; color: var(--accent); margin-bottom: 10px; }
+    .section-title p { color: var(--text-light); }
+    
+    /* MODULES GRID */
+    .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+    .module-card { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); transition: 0.3s; }
+    .module-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--primary); }
+    .module-icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .module-card h3 { margin-bottom: 10px; color: var(--accent); }
+    .module-card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 15px; }
+    .badge { display: inline-block; padding: 4px 10px; background: #dcfce7; color: #166534; font-size: 0.8rem; border-radius: 20px; font-weight: 600; }
 
-  /* SECTIONS */
-  section{padding:70px 5%}
-  .section-label{font-size:.8rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
-  .section-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:.8rem}
-  .section-sub{color:var(--gray);font-size:1rem;max-width:550px}
-  .section-header{margin-bottom:3rem}
-  .section-header.center{text-align:center}
-  .section-header.center .section-sub{margin:0 auto}
+    /* PRACTICE TOOLS INTERFACE */
+    .tool-interface { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 30px; margin-bottom: 40px; border: 1px solid var(--border); }
+    .tool-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+    .tool-header h3 { color: var(--accent); font-size: 1.3rem; }
+    .tool-controls { display: flex; gap: 15px; align-items: center; }
+    .timer { font-family: monospace; font-size: 1.2rem; font-weight: bold; color: var(--danger); }
+    textarea { width: 100%; min-height: 200px; padding: 15px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; resize: vertical; }
+    .question-box { background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--primary); }
+    
+    /* DASHBOARD */
+    .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+    .dashboard-card { background: var(--card); padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .progress-bar { height: 10px; background: #e2e8f0; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--primary); width: 70%; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-light); font-size: 0.9rem; }
 
-  /* SKILLS GRID */
-  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
-  .skill-card{border:1px solid var(--border);border-radius:16px;padding:1.8rem;transition:.2s;cursor:pointer;position:relative;overflow:hidden}
-  .skill-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--blue)}
-  .skill-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
-  .skill-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
-  .skill-card p{font-size:.88rem;color:var(--gray);line-height:1.6}
-  .skill-tag{display:inline-block;margin-top:.8rem;font-size:.75rem;font-weight:600;padding:.25rem .6rem;border-radius:6px}
-  .badge-available{background:#dcfce7;color:#15803d}
-  .badge-soon{background:#fef9c3;color:#854d0e}
-  .reading .skill-icon{background:#eff6ff;color:#2563eb}
-  .listening .skill-icon{background:#f0fdf4;color:#16a34a}
-  .writing .skill-icon{background:#fdf4ff;color:#9333ea}
-  .speaking .skill-icon{background:#fff7ed;color:#ea580c}
+    /* FOOTER */
+    footer { background: #0F172A; color: white; padding: 50px 20px 20px; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+    .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #334155; color: #64748B; font-size: 0.9rem; }
+    .footer-logo { height: 60px; margin-bottom: 15px; filter: brightness(0) invert(1); }
 
-  /* HOW IT WORKS */
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:2rem}
-  .step{text-align:center;padding:1.5rem}
-  .step-num{width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
-  .step h4{font-weight:700;margin-bottom:.4rem}
-  .step p{font-size:.88rem;color:var(--gray)}
-
-  /* FEATURES */
-  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
-  .feature{display:flex;gap:1rem;padding:1.5rem;border-radius:12px;background:var(--light)}
-  .feature-icon{font-size:1.5rem;flex-shrink:0}
-  .feature h4{font-weight:700;margin-bottom:.3rem}
-  .feature p{font-size:.85rem;color:var(--gray);line-height:1.6}
-
-  /* PRICING */
-  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:800px;margin:0 auto}
-  .price-card{border:2px solid var(--border);border-radius:16px;padding:2rem;text-align:center}
-  .price-card.popular{border-color:var(--blue);position:relative}
-  .popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.75rem;font-weight:700;padding:.25rem .8rem;border-radius:20px}
-  .price{font-size:2.5rem;font-weight:800;margin:1rem 0 .3rem}
-  .price span{font-size:1rem;font-weight:400;color:var(--gray)}
-  .price-features{list-style:none;text-align:left;margin:1.5rem 0;display:flex;flex-direction:column;gap:.6rem}
-  .price-features li{display:flex;align-items:center;gap:.6rem;font-size:.88rem}
-  .price-features li::before{content:'✓';color:var(--green);font-weight:700}
-  .price-features li.no::before{content:'✗';color:#d1d5db}
-  .price-features li.no{color:var(--gray)}
-  .btn-full{width:100%;justify-content:center;padding:.8rem}
-
-  /* TESTIMONIALS */
-  .testimonials{background:var(--light)}
-  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
-  .testi{background:#fff;border-radius:12px;padding:1.5rem;border:1px solid var(--border)}
-  .stars{color:#f59e0b;margin-bottom:.8rem;font-size:.9rem}
-  .testi p{font-size:.88rem;color:var(--gray);line-height:1.6;margin-bottom:1rem}
-  .testi-author{font-weight:700;font-size:.85rem}
-  .testi-loc{font-size:.78rem;color:var(--gray)}
-
-  /* CTA BANNER */
-  .cta-banner{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;text-align:center;padding:70px 5%}
-  .cta-banner h2{font-size:2rem;font-weight:800;margin-bottom:.8rem}
-  .cta-banner p{color:rgba(255,255,255,.8);margin-bottom:2rem}
-
-  /* FOOTER */
-  footer{background:#0f172a;color:#94a3b8;padding:3rem 5% 2rem}
-  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
-  .footer-brand p{font-size:.85rem;margin-top:.8rem;line-height:1.7}
-  .footer-col h5{color:#fff;font-size:.85rem;font-weight:700;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.05em}
-  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-  .footer-col ul li a{font-size:.83rem;color:#94a3b8;transition:.2s}
-  .footer-col ul li a:hover{color:#fff}
-  .footer-bottom{border-top:1px solid #1e293b;padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;font-size:.8rem}
-
-  /* PRACTICE PAGE */
-  .practice-hero{background:linear-gradient(135deg,#0f172a,#1e3a8a);color:#fff;padding:50px 5% 40px;text-align:center}
-  .practice-hero h1{font-size:1.8rem;font-weight:800;margin-bottom:.5rem}
-  .practice-hero p{color:#94a3b8;font-size:.95rem}
-  .practice-tabs{display:flex;justify-content:center;gap:.5rem;margin-top:1.5rem;flex-wrap:wrap}
-  .tab-btn{padding:.5rem 1.2rem;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;cursor:pointer;font-size:.85rem;font-weight:500;transition:.2s}
-  .tab-btn.active{background:#fff;color:#1e3a8a}
-  .practice-content{max-width:900px;margin:0 auto;padding:2rem 5%}
-
-  /* WRITING PRACTICE */
-  .writing-area{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-  .prompt-box{background:var(--light);border-radius:12px;padding:1.5rem;border:1px solid var(--border)}
-  .prompt-box h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray);margin-bottom:.8rem}
-  .prompt-box .prompt-type{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:5px;margin-bottom:.8rem}
-  .prompt-text{font-size:.9rem;line-height:1.7;color:var(--text)}
-  .editor-box{display:flex;flex-direction:column;gap:1rem}
-  .editor-toolbar{display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:#fff;border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;flex-wrap:wrap}
-  .toolbar-info{display:flex;gap:1rem;font-size:.82rem;color:var(--gray)}
-  .toolbar-info strong{color:var(--text)}
-  .timer-display{font-family:monospace;font-size:1rem;font-weight:700;color:var(--blue)}
-  .timer-display.urgent{color:#ef4444;animation:pulse 1s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-  .toolbar-btns{display:flex;gap:.5rem}
-  .t-btn{padding:.35rem .8rem;border-radius:7px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:.78rem;font-weight:600;transition:.2s;display:flex;align-items:center;gap:.3rem}
-  .t-btn:hover{border-color:var(--blue);color:var(--blue)}
-  .t-btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
-  .t-btn.primary:hover{background:var(--blue-dark)}
-  textarea.essay{width:100%;min-height:350px;border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:.93rem;line-height:1.8;resize:vertical;font-family:inherit;color:var(--text)}
-  textarea.essay:focus{outline:none;border-color:var(--blue)}
-  .word-bar{height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden}
-  .word-progress{height:100%;background:var(--green);transition:.3s;border-radius:2px}
-  .word-bar .label{font-size:.72rem;color:var(--gray);margin-bottom:3px}
-
-  /* FEEDBACK PANEL */
-  .feedback-panel{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1rem;display:none}
-  .feedback-panel.show{display:block}
-  .band-score-display{display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;padding:1rem;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:10px}
-  .band-big{font-size:3rem;font-weight:800;color:var(--blue);line-height:1}
-  .band-label{font-size:.75rem;color:var(--gray);text-transform:uppercase;font-weight:700}
-  .sub-scores{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;flex:1}
-  .sub-score{text-align:center;background:#fff;border-radius:8px;padding:.5rem}
-  .sub-score strong{display:block;font-size:1.1rem;color:var(--blue)}
-  .sub-score span{font-size:.7rem;color:var(--gray)}
-  .feedback-comments h5{font-weight:700;margin-bottom:.6rem;font-size:.85rem}
-  .feedback-item{display:flex;gap:.6rem;margin-bottom:.5rem;font-size:.83rem;line-height:1.5}
-  .feedback-item .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.4rem}
-  .dot-good{background:var(--green)}
-  .dot-warn{background:#f59e0b}
-  .dot-bad{background:#ef4444}
-  .mode-toggle{display:flex;background:var(--light);border-radius:8px;padding:3px;gap:3px;margin-bottom:1rem}
-  .mode-btn{flex:1;padding:.4rem;border-radius:6px;border:none;background:transparent;cursor:pointer;font-size:.82rem;font-weight:500;color:var(--gray);transition:.2s}
-  .mode-btn.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.1)}
-
-  /* READING PAGE */
-  .reading-area{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-  .passage-box{background:var(--light);border-radius:12px;padding:1.5rem;border:1px solid var(--border);max-height:500px;overflow-y:auto}
-  .passage-box h4{font-size:.8rem;font-weight:700;text-transform:uppercase;color:var(--gray);margin-bottom:1rem}
-  .passage-text{font-size:.88rem;line-height:1.9;color:var(--text)}
-  .passage-text p{margin-bottom:.8rem}
-  .questions-box{display:flex;flex-direction:column;gap:1rem}
-  .question-item{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.2rem}
-  .q-num{font-size:.75rem;font-weight:700;color:var(--gray);margin-bottom:.4rem}
-  .q-text{font-size:.88rem;font-weight:600;margin-bottom:.8rem;line-height:1.5}
-  .q-options{display:flex;flex-direction:column;gap:.4rem}
-  .q-opt{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;border-radius:6px;cursor:pointer;transition:.2s;font-size:.85rem}
-  .q-opt:hover{background:var(--blue-light)}
-  .q-opt input{accent-color:var(--blue)}
-  .q-opt.correct{background:#dcfce7;color:#15803d}
-  .q-opt.wrong{background:#fee2e2;color:#dc2626}
-  .submit-reading{margin-top:1rem;width:100%}
-  .score-reveal{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-radius:10px;padding:1.2rem;text-align:center;margin-top:1rem;display:none}
-  .score-reveal.show{display:block}
-  .score-reveal strong{font-size:1.5rem;color:var(--blue)}
-
-  /* LISTENING */
-  .audio-player{background:linear-gradient(135deg,#0f172a,#1e3a8a);border-radius:12px;padding:1.5rem;color:#fff;margin-bottom:1.5rem}
-  .audio-player h4{margin-bottom:.5rem;font-size:.85rem;opacity:.8}
-  .audio-player .title{font-weight:700;margin-bottom:1rem}
-  .audio-controls{display:flex;align-items:center;gap:1rem}
-  .play-btn{width:44px;height:44px;border-radius:50%;background:#fff;border:none;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
-  .play-btn:hover{transform:scale(1.05)}
-  .progress-bar{flex:1;height:4px;background:rgba(255,255,255,.2);border-radius:2px;cursor:pointer;position:relative}
-  .progress-fill{height:100%;background:#93c5fd;border-radius:2px;width:0%;transition:.1s}
-  .time-display{font-size:.8rem;opacity:.8;font-family:monospace}
-
-  /* SPEAKING */
-  .speaking-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center;max-width:600px;margin:0 auto}
-  .speaking-card .part-badge{display:inline-block;background:var(--blue-light);color:var(--blue);font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:20px;margin-bottom:1rem}
-  .speaking-card h3{font-size:1.2rem;font-weight:700;margin-bottom.5rem}
-  .cue-card{background:var(--light);border:2px solid var(--border);border-radius:10px;padding:1.5rem;margin:1.2rem 0;text-align:left}
-  .cue-card h5{font-weight:700;margin-bottom:.6rem}
-  .cue-card ul{margin-left:1rem;font-size:.88rem;line-height:1.8;color:var(--gray)}
-  .record-btn{width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;font-size:1.8rem;display:flex;align-items:center;justify-content:center;margin:1.2rem auto;transition:.2s}
-  .record-btn.idle{background:#f1f5f9}
-  .record-btn.recording{background:#fee2e2;animation:pulse 1s infinite}
-  .record-status{font-size:.85rem;color:var(--gray);margin-bottom:1rem}
-
-  /* DASHBOARD */
-  .dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-bottom:2rem}
-  .dash-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem}
-  .dash-card .label{font-size:.78rem;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-  .dash-card .value{font-size:2rem;font-weight:800;margin:.3rem 0;color:var(--text)}
-  .dash-card .change{font-size:.8rem;color:var(--green)}
-  .dash-card .change.down{color:#ef4444}
-  .skill-bar-section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
-  .skill-bar-section h4{font-weight:700;margin-bottom:1.2rem}
-  .skill-row{display:flex;align-items:center;gap:1rem;margin-bottom:.9rem}
-  .skill-name{width:80px;font-size:.85rem;font-weight:600}
-  .bar-wrap{flex:1;height:10px;background:#e5e7eb;border-radius:5px;overflow:hidden}
-  .bar-fill{height:100%;border-radius:5px;transition:width 1s ease}
-  .skill-score{font-size:.88rem;font-weight:700;width:30px;text-align:right}
-  .recent-table{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-  .recent-table h4{padding:1.2rem 1.5rem;font-weight:700;border-bottom:1px solid var(--border)}
-  table{width:100%;border-collapse:collapse}
-  th,td{padding:.8rem 1.5rem;text-align:left;font-size:.83rem}
-  th{background:var(--light);font-weight:700;color:var(--gray);text-transform:uppercase;font-size:.75rem;letter-spacing:.04em}
-  tr:not(:last-child) td{border-bottom:1px solid var(--border)}
-  .band-pill{display:inline-block;padding:.2rem .6rem;border-radius:6px;font-weight:700;font-size:.78rem}
-  .band-7{background:#dcfce7;color:#15803d}
-  .band-6{background:#fef9c3;color:#854d0e}
-  .band-5{background:#fee2e2;color:#dc2626}
-
-  /* MODALS */
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
-  .modal-overlay.show{display:flex}
-  .modal{background:#fff;border-radius:16px;padding:2rem;width:100%;max-width:420px;position:relative}
-  .modal h3{font-size:1.3rem;font-weight:800;margin-bottom.5rem}
-  .modal p{color:var(--gray);font-size:.88rem;margin-bottom:1.5rem}
-  .form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
-  .form-group label{font-size:.82rem;font-weight:600}
-  .form-group input{padding:.65rem .9rem;border:1px solid var(--border);border-radius:8px;font-size:.9rem;font-family:inherit}
-  .form-group input:focus{outline:none;border-color:var(--blue)}
-  .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--gray)}
-  .divider{display:flex;align-items:center;gap:.8rem;margin:1rem 0;color:var(--gray);font-size:.8rem}
-  .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
-  .google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.7rem;border:1px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;font-size:.9rem;font-weight:500;transition:.2s}
-  .google-btn:hover{background:var(--light)}
-  .switch-auth{text-align:center;font-size:.83rem;color:var(--gray);margin-top:1rem}
-  .switch-auth a{color:var(--blue);font-weight:600;cursor:pointer}
-
-  /* RESPONSIVE */
-  @media(max-width:768px){
-    .nav-links{display:none;position:fixed;inset:0;background:#fff;flex-direction:column;justify-content:center;align-items:center;gap:2rem;z-index:99}
-    .nav-links.open{display:flex}
-    .hamburger{display:flex;z-index:100}
-    .writing-area,.reading-area{grid-template-columns:1fr}
-    .footer-grid{grid-template-columns:1fr 1fr}
-    .hero-stats{gap:1.5rem}
-    .hero{padding:60px 5%}
-  }
-</style>
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .nav-container { flex-direction: column; height: auto; padding: 15px; gap: 15px; }
+      nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">
-    <div class="logo-icon">En</div>
-    EnGram
-  </div>
-  <div class="nav-links" id="navLinks">
-    <a href="#" class="active" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('practice')">Practice</a>
-    <a href="#" onclick="showPage('dashboard')">Dashboard</a>
-    <a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('pricing').scrollIntoView({behavior:'smooth'}),100)">Pricing</a>
-    <a href="#" class="nav-cta btn" onclick="showModal('signup')">Sign Up Free</a>
-  </div>
-  <div class="hamburger" id="hamburger" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-
-<!-- ===== HOME PAGE ===== -->
-<div class="page active" id="page-home">
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-badge">🇳🇵 Built for Nepali Students</div>
-    <h1>Master IELTS with<br><span>Computer-Based Practice</span></h1>
-    <p>Free, exam-realistic practice for all 4 IELTS skills. Get AI-powered feedback and track your progress to your dream band score.</p>
-    <div class="hero-btns">
-      <button class="btn btn-primary" onclick="showPage('practice')">🚀 Start Practicing Free</button>
-      <button class="btn btn-outline" onclick="showPage('dashboard')">📊 View Dashboard</button>
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+      <a href="#home" class="logo"><img src="logo.png" alt="EnGram Education"></a>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#practice">Practice</a></li>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </nav>
+      <a href="#practice" class="btn">Start Practicing</a>
     </div>
-    <div class="hero-stats">
-      <div class="stat"><strong>10,000+</strong><span>Students</span></div>
-      <div class="stat"><strong>4</strong><span>IELTS Skills</span></div>
-      <div class="stat"><strong>AI</strong><span>Powered Feedback</span></div>
-      <div class="stat"><strong>100%</strong><span>Free Core Access</span></div>
+  </header>
+
+  <!-- LANDING PAGE CONTENT -->
+  <div id="home">
+    <section class="hero">
+      <h1>Pathway to Global Communication</h1>
+      <p>Free, computer-based IELTS preparation designed for Nepali students. Practice writing, get instant feedback, and achieve your dream band score.</p>
+      <div class="hero-buttons">
+        <a href="#practice" class="btn btn-white">🚀 Start Writing Practice</a>
+        <a href="#pricing" class="btn btn-ghost">Explore Pricing</a>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Free Forever</div></div>
+      <div class="stat-card"><div class="stat-number">AI</div><div class="stat-label">Grammar Feedback</div></div>
+      <div class="stat-card"><div class="stat-number">Real</div><div class="stat-label">Exam Simulation</div></div>
+      <div class="stat-card"><div class="stat-number">🇳🇵</div><div class="stat-label">Built for Nepal</div></div>
     </div>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Practice Modules</h2>
+        <p>Realistic, computer-based practice for every section of the exam.</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-icon">✍️</div>
+          <h3>Writing</h3>
+          <p>Task 1 & Task 2 with timed editor, word counter, and AI-powered band score feedback.</p>
+          <span class="badge">✓ Available Now</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">📖</div>
+          <h3>Reading</h3>
+          <p>Academic & General Training passages with timed practice and instant scoring.</p>
+          <span class="badge">Coming Soon</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">🎧</div>
+          <h3>Listening</h3>
+          <p>Audio recordings with Section 1–4 practice. Answer while listening.</p>
+          <span class="badge">Coming Soon</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">🗣️</div>
+          <h3>Speaking</h3>
+          <p>Part 1, 2 & 3 practice with cue cards and recording for self-review.</p>
+          <span class="badge">Coming Soon</span>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <!-- SKILLS -->
-  <section>
-    <div class="section-header">
-      <div class="section-label">Practice Modules</div>
-      <div class="section-title">All 4 IELTS Skills Covered</div>
-      <div class="section-sub">Realistic, computer-based practice for every section of the exam.</div>
+  <!-- PRACTICE TOOLS SECTION -->
+  <section id="practice" class="section" style="background: white;">
+    <div class="section-title">
+      <h2>IELTS Practice Centre</h2>
+      <p>Experience the real computer-based test environment.</p>
     </div>
-    <div class="skills-grid">
-      <div class="skill-card reading" onclick="showPage('practice');switchTab('reading')">
-        <div class="skill-icon">📖</div>
-        <h3>Reading</h3>
-        <p>Academic & General Training passages with timed practice, multiple question types, and instant scoring.</p>
-        <span class="skill-tag badge-available">✓ Available Now</span>
+
+    <!-- WRITING TOOL (Functional) -->
+    <div class="tool-interface">
+      <div class="tool-header">
+        <h3>✍️ Writing Task 2</h3>
+        <div class="tool-controls">
+          <span class="timer" id="timer">60:00</span>
+          <span id="wordCount">Words: 0</span>
+          <button class="btn btn-outline" onclick="alert('Resetting timer...')">Reset</button>
+          <button class="btn" onclick="alert('Checking Grammar...')">✨ Check Grammar</button>
+        </div>
       </div>
-      <div class="skill-card listening" onclick="showPage('practice');switchTab('listening')">
-        <div class="skill-icon">🎧</div>
-        <h3>Listening</h3>
-        <p>Audio recordings with Section 1–4 practice. Answer while listening, just like the real computer test.</p>
-        <span class="skill-tag badge-available">✓ Available Now</span>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="question-box">
+          <strong>Task Prompt:</strong><br>
+          Some people believe that technology makes life easier. Others think it creates more problems.<br>
+          <em>Discuss both views and give your opinion.</em>
+        </div>
+        <div>
+          <textarea placeholder="Start typing your essay here..."></textarea>
+        </div>
       </div>
-      <div class="skill-card writing" onclick="showPage('practice');switchTab('writing')">
-        <div class="skill-icon">✍️</div>
-        <h3>Writing</h3>
-        <p>Task 1 & Task 2 with timed editor, word counter, and AI-powered band score feedback on 4 criteria.</p>
-        <span class="skill-tag badge-available">✓ Available Now</span>
+    </div>
+
+    <!-- READING MOCKUP -->
+    <div class="tool-interface">
+      <div class="tool-header">
+        <h3>📖 Academic Reading</h3>
+        <div class="tool-controls">
+          <span class="timer">60:00</span>
+          <button class="btn btn-outline">Submit Answers</button>
+        </div>
       </div>
-      <div class="skill-card speaking" onclick="showPage('practice');switchTab('speaking')">
-        <div class="skill-icon">🗣️</div>
-        <h3>Speaking</h3>
-        <p>Part 1, 2 & 3 practice with cue cards, preparation timer, and recording for self-review.</p>
-        <span class="skill-tag badge-available">✓ Available Now</span>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="question-box" style="background: #fff; border: 1px solid #e2e8f0;">
+          <strong>Passage: The Rise of Remote Work</strong><br><br>
+          The COVID-19 pandemic fundamentally transformed the nature of work across the globe. Millions of employees...
+        </div>
+        <div>
+          <p><strong>Question 1:</strong> According to the passage, what percentage of global workers work remotely?</p>
+          <label><input type="radio" name="q1"> A. 13%</label><br>
+          <label><input type="radio" name="q1"> B. 18%</label><br>
+          <label><input type="radio" name="q1"> C. 25%</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTENING MOCKUP -->
+    <div class="tool-interface">
+      <div class="tool-header">
+        <h3>🎧 Listening Section 1</h3>
+        <div class="tool-controls">
+          <span class="timer">30:00</span>
+          <button class="btn btn-outline">Play Audio ▶</button>
+        </div>
+      </div>
+      <div class="question-box">
+        <strong>Form Completion:</strong> Complete the form below. Write NO MORE THAN TWO WORDS.<br><br>
+        Name: <input type="text" style="padding: 5px; border: 1px solid #ccc; width: 200px;"><br><br>
+        Membership Type: <input type="text" style="padding: 5px; border: 1px solid #ccc; width: 200px;">
+      </div>
+    </div>
+
+    <!-- SPEAKING MOCKUP -->
+    <div class="tool-interface">
+      <div class="tool-header">
+        <h3>🗣️ Speaking Part 1</h3>
+        <div class="tool-controls">
+          <span class="timer">04:00</span>
+          <button class="btn">🎙️ Record Answer</button>
+        </div>
+      </div>
+      <div class="question-box">
+        <strong>Topic: Hometown</strong><br>
+        Where are you from originally?<br>
+        Do you currently live in the same place you grew up?
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section style="background:var(--light)">
-    <div class="section-header center">
-      <div class="section-label">How It Works</div>
-      <div class="section-title">Simple. Effective. Free.</div>
+  <!-- DASHBOARD SECTION -->
+  <section id="dashboard" class="section">
+    <div class="section-title">
+      <h2>Your Progress Dashboard</h2>
+      <p>Track your band scores and improvement across all 4 skills.</p>
     </div>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><h4>Choose a Skill</h4><p>Select Reading, Listening, Writing, or Speaking from the practice menu.</p></div>
-      <div class="step"><div class="step-num">2</div><h4>Practice Timed</h4><p>Complete the task under real exam conditions with our countdown timer.</p></div>
-      <div class="step"><div class="step-num">3</div><h4>Get Feedback</h4><p>Receive instant scores and AI suggestions to improve your performance.</p></div>
-      <div class="step"><div class="step-num">4</div><h4>Track Progress</h4><p>Watch your band score grow in your personal dashboard over time.</p></div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section>
-    <div class="section-header">
-      <div class="section-label">Features</div>
-      <div class="section-title">Everything You Need to Succeed</div>
-    </div>
-    <div class="features-grid">
-      <div class="feature"><div class="feature-icon">🖥️</div><div><h4>Computer-Based Interface</h4><p>Matches the exact layout and feel of the official IELTS on-screen test experience.</p></div></div>
-      <div class="feature"><div class="feature-icon">🤖</div><div><h4>AI Writing Feedback</h4><p>Get band scores across Task Achievement, Coherence, Lexical Resource & Grammar.</p></div></div>
-      <div class="feature"><div class="feature-icon">⏱️</div><div><h4>Exam-Accurate Timer</h4><p>Countdown timer for each task, with urgent warnings as time runs low.</p></div></div>
-      <div class="feature"><div class="feature-icon">📊</div><div><h4>Progress Dashboard</h4><p>Track your scores over time for every skill and see where to improve.</p></div></div>
-      <div class="feature"><div class="feature-icon">📚</div><div><h4>Large Question Bank</h4><p>Hundreds of practice questions across Academic and General Training formats.</p></div></div>
-      <div class="feature"><div class="feature-icon">🔒</div><div><h4>Exam Mode</h4><p>Disable spellcheck and auto-suggest for authentic, distraction-free practice.</p></div></div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials">
-    <div class="section-header center">
-      <div class="section-label">Student Reviews</div>
-      <div class="section-title">Loved by Nepali IELTS Candidates</div>
-    </div>
-    <div class="testi-grid">
-      <div class="testi"><div class="stars">★★★★★</div><p>"The writing interface feels exactly like the real test. I practiced daily and went from 5.5 to 7.0 in writing in one month!"</p><div class="testi-author">Priya Shrestha</div><div class="testi-loc">Kathmandu</div></div>
-      <div class="testi"><div class="stars">★★★★★</div><p>"Finally a free tool that actually simulates computer-based IELTS. The AI feedback helped me understand my grammar weaknesses."</p><div class="testi-author">Rajesh Karki</div><div class="testi-loc">Pokhara</div></div>
-      <div class="testi"><div class="stars">★★★★☆</div><p>"The reading and listening sections are very realistic. I felt confident going into the actual exam. Highly recommend to all students."</p><div class="testi-author">Anjali Maharjan</div><div class="testi-loc">Lalitpur</div></div>
+    <div class="dashboard-grid">
+      <div class="dashboard-card">
+        <h3>Recent Practice Sessions</h3>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Skill</th><th>Band Score</th><th>Time</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Apr 22, 2026</td><td>Writing Task 2</td><td>6.5</td><td>38 min</td></tr>
+            <tr><td>Apr 21, 2026</td><td>Reading Passage 1</td><td>7.0</td><td>18 min</td></tr>
+            <tr><td>Apr 21, 2026</td><td>Listening Sec 1</td><td>7.5</td><td>22 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dashboard-card">
+        <h3>Skill Band Scores</h3>
+        <div style="margin-bottom: 15px;">
+          <div style="display:flex; justify-content:space-between;"><span>Reading</span><strong>6.5</strong></div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <div style="display:flex; justify-content:space-between;"><span>Listening</span><strong>7.0</strong></div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 70%;"></div></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <div style="display:flex; justify-content:space-between;"><span>Writing</span><strong>6.0</strong></div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 60%; background: var(--secondary);"></div></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <div style="display:flex; justify-content:space-between;"><span>Speaking</span><strong>6.5</strong></div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- PRICING -->
-  <section id="pricing">
-    <div class="section-header center">
-      <div class="section-label">Pricing</div>
-      <div class="section-title">Start Free. Upgrade When Ready.</div>
-      <div class="section-sub">Quality IELTS preparation should be accessible to every Nepali student.</div>
+  <section id="pricing" class="section" style="background: white;">
+    <div class="section-title">
+      <h2>Start Free. Upgrade When Ready.</h2>
     </div>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <div style="font-size:1.5rem">📘</div>
-        <h3 style="margin-top:.8rem">Free</h3>
-        <div class="price">NPR 0<span>/forever</span></div>
-        <ul class="price-features">
-          <li>All 4 skill modules</li>
-          <li>Timer & word counter</li>
-          <li>Basic grammar check</li>
-          <li>Reading & Listening scoring</li>
-          <li class="no">AI Writing feedback</li>
-          <li class="no">Progress dashboard</li>
-          <li class="no">Unlimited test library</li>
-        </ul>
-        <button class="btn btn-primary btn-full" onclick="showModal('signup')">Get Started Free</button>
+    <div class="modules-grid" style="max-width: 800px; margin: 0 auto;">
+      <div class="module-card" style="text-align: center;">
+        <h3>Free Core</h3>
+        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 15px 0;">NPR 0</div>
+        <p>Basic grammar check<br>Timer & word counter<br>Unlimited practice</p>
+        <a href="#practice" class="btn btn-outline" style="width: 100%; display: block; margin-top: 20px;">Get Started</a>
       </div>
-      <div class="price-card popular">
-        <div class="popular-badge">Most Popular</div>
-        <div style="font-size:1.5rem">🚀</div>
-        <h3 style="margin-top:.8rem">Premium</h3>
-        <div class="price">NPR 499<span>/month</span></div>
-        <ul class="price-features">
-          <li>Everything in Free</li>
-          <li>AI band score feedback</li>
-          <li>Full progress dashboard</li>
-          <li>500+ test library access</li>
-          <li>Speaking mock recordings</li>
-          <li>Detailed error analysis</li>
-          <li>Priority support</li>
-        </ul>
-        <button class="btn btn-primary btn-full" onclick="showModal('signup')">Start 7-Day Free Trial</button>
+      <div class="module-card" style="text-align: center; border: 2px solid var(--primary);">
+        <div class="badge" style="background: var(--primary); color: white; margin-bottom: 10px;">Most Popular</div>
+        <h3>Premium</h3>
+        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 15px 0;">NPR 499<span style="font-size: 1rem; color: #666;">/mo</span></div>
+        <p>AI band score feedback<br>Full progress dashboard<br>500+ test library</p>
+        <a href="#" class="btn" style="width: 100%; display: block; margin-top: 20px;">Start 7-Day Trial</a>
       </div>
     </div>
   </section>
 
-  <!-- CTA BANNER -->
-  <div class="cta-banner">
-    <h2>Ready to Achieve Your Target Band Score?</h2>
-    <p>Join thousands of Nepali students preparing smarter with EnGram.</p>
-    <button class="btn btn-outline" onclick="showPage('practice')">🚀 Start Practicing Now — It's Free</button>
-  </div>
-
   <!-- FOOTER -->
   <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo" style="color:#fff">
-          <div class="logo-icon">En</div> EnGram Education
-        </div>
-        <p>Free computer-based IELTS preparation for Nepali students. Built with ❤️ in Nepal.</p>
+    <div class="footer-content">
+      <div>
+        <img src="logo.png" alt="EnGram" class="footer-logo">
+        <p style="color: #94A3B8;">Free computer-based IELTS preparation for Nepali students. Built with ❤️ in Nepal.</p>
       </div>
-      <div class="footer-col">
-        <h5>Practice</h5>
-        <ul>
-          <li><a href="#" onclick="showPage('practice');switchTab('reading')">Reading</a></li>
-          <li><a href="#" onclick="showPage('practice');switchTab('listening')">Listening</a></li>
-          <li><a href="#" onclick="showPage('practice');switchTab('writing')">Writing</a></li>
-          <li><a href="#" onclick="showPage('practice');switchTab('speaking')">Speaking</a></li>
+      <div>
+        <h4>Practice</h4>
+        <ul style="list-style: none; line-height: 2;">
+          <li><a href="#practice" style="color: #cbd5e1;">Writing Task 2</a></li>
+          <li><a href="#" style="color: #cbd5e1;">Reading (Coming Soon)</a></li>
+          <li><a href="#" style="color: #cbd5e1;">Listening (Coming Soon)</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Blog / Tips</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Connect</h5>
-        <ul>
-          <li><a href="https://www.facebook.com/p/EnGram-Education-Center-61562132556529/" target="_blank">Facebook</a></li>
-          <li><a href="mailto:contact@engram.com.np">Email Us</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Use</a></li>
+      <div>
+        <h4>Company</h4>
+        <ul style="list-style: none; line-height: 2;">
+          <li><a href="https://www.facebook.com/p/EnGram-Education-Center-61562132556529/" target="_blank" style="color: #cbd5e1;">Facebook</a></li>
+          <li><a href="mailto:contact@engram.com.np" style="color: #cbd5e1;">Email Us</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 EnGram Education Center. All rights reserved.</span>
-      <span>Grammar powered by LanguageTool • AI by Claude</span>
+      © 2026 EnGram Education Center. All rights reserved.
     </div>
   </footer>
-</div>
 
-<!-- ===== PRACTICE PAGE ===== -->
-<div class="page" id="page-practice">
-  <div class="practice-hero">
-    <h1>IELTS Practice Centre</h1>
-    <p>Computer-based practice for all 4 skills — exactly like the real exam</p>
-    <div class="practice-tabs">
-      <button class="tab-btn active" onclick="switchTab('writing')">✍️ Writing</button>
-      <button class="tab-btn" onclick="switchTab('reading')">📖 Reading</button>
-      <button class="tab-btn" onclick="switchTab('listening')">🎧 Listening</button>
-      <button class="tab-btn" onclick="switchTab('speaking')">🗣️ Speaking</button>
-    </div>
-  </div>
-  <div class="practice-content">
+  <script>
+    // Simple Timer Script for the Writing Section
+    let timeLeft = 60 * 60;
+    const timerEl = document.getElementById('timer');
+    setInterval(() => {
+      if(timeLeft > 0) {
+        timeLeft--;
+        const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const s = (timeLeft % 60).toString().padStart(2, '0');
+        if(timerEl) timerEl.textContent = `${m}:${s}`;
+      }
+    }, 1000);
 
-    <!-- WRITING TAB -->
-    <div id="tab-writing">
-      <div class="mode-toggle">
-        <button class="mode-btn active" onclick="setMode('practice',this)">📘 Practice Mode</button>
-        <button class="mode-btn" onclick="setMode('exam',this)">🎯 Exam Mode</button>
-      </div>
-      <div class="writing-area">
-        <div class="prompt-box">
-          <div class="prompt-type">Task 2 — Academic</div>
-          <h4>Question Prompt</h4>
-          <div class="prompt-text">
-            <p><strong>Some people believe that technology makes life easier. Others think it creates more problems than it solves.</strong></p>
-            <p>Discuss both views and give your own opinion.</p>
-            <p style="margin-top:1rem;font-size:.82rem;color:var(--gray)"><em>Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.</em></p>
-          </div>
-          <div style="margin-top:1.5rem;border-top:1px solid var(--border);padding-top:1rem">
-            <div style="font-size:.75rem;font-weight:700;color:var(--gray);text-transform:uppercase;margin-bottom:.5rem">Change Prompt</div>
-            <select onchange="changePrompt(this.value)" style="width:100%;padding:.5rem;border:1px solid var(--border);border-radius:7px;font-size:.82rem;font-family:inherit">
-              <option value="tech">Technology & Society</option>
-              <option value="environment">Environment</option>
-              <option value="education">Education</option>
-              <option value="globalization">Globalization</option>
-            </select>
-          </div>
-        </div>
-        <div class="editor-box">
-          <div class="editor-toolbar">
-            <div class="toolbar-info">
-              <span>⏱️ <strong class="timer-display" id="writingTimer">40:00</strong></span>
-              <span>📝 Words: <strong id="wordCount">0</strong>/250+</span>
-            </div>
-            <div class="toolbar-btns">
-              <button class="t-btn" onclick="resetEssay()">🔄 Reset</button>
-              <button class="t-btn primary" onclick="submitEssay()">✨ Get AI Feedback</button>
-            </div>
-          </div>
-          <div>
-            <div class="word-bar">
-              <div style="font-size:.72rem;color:var(--gray);margin-bottom:3px">Progress to minimum word count</div>
-              <div style="height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden"><div class="word-progress" id="wordProgress" style="width:0%"></div></div>
-            </div>
-          </div>
-          <textarea class="essay" id="essayArea" placeholder="Begin writing your essay here..." oninput="updateWordCount(this)"></textarea>
-          <div class="feedback-panel" id="feedbackPanel">
-            <div class="band-score-display">
-              <div>
-                <div class="band-label">Overall Band</div>
-                <div class="band-big" id="overallBand">6.5</div>
-              </div>
-              <div class="sub-scores">
-                <div class="sub-score"><strong id="taScore">6.0</strong><span>Task Achievement</span></div>
-                <div class="sub-score"><strong id="ccScore">7.0</strong><span>Coherence</span></div>
-                <div class="sub-score"><strong id="lrScore">6.5</strong><span>Lexical Resource</span></div>
-                <div class="sub-score"><strong id="grScore">6.5</strong><span>Grammar Range</span></div>
-              </div>
-            </div>
-            <div class="feedback-comments">
-              <h5>💬 Detailed Feedback</h5>
-              <div class="feedback-item"><div class="dot dot-good"></div><div>Good introduction that clearly sets up both sides of the argument.</div></div>
-              <div class="feedback-item"><div class="dot dot-warn"></div><div>Try to use more precise academic vocabulary — "makes life easier" could be "enhances quality of life."</div></div>
-              <div class="feedback-item"><div class="dot dot-warn"></div><div>Paragraph 3 lacks a clear topic sentence. Start with a signposting phrase like "On the other hand..."</div></div>
-              <div class="feedback-item"><div class="dot dot-bad"></div><div>Your conclusion does not clearly state your own opinion — add a definitive stance in the final paragraph.</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- READING TAB -->
-    <div id="tab-reading" style="display:none">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:.8rem">
-        <div><strong>Academic Reading — Passage 1</strong> <span style="color:var(--gray);font-size:.85rem">| Section 1 of 3</span></div>
-        <div style="display:flex;align-items:center;gap:1rem">
-          <span>⏱️ <strong class="timer-display" id="readingTimer">60:00</strong></span>
-          <button class="t-btn primary submit-reading" onclick="scoreReading()" style="width:auto">Submit Answers</button>
-        </div>
-      </div>
-      <div class="reading-area">
-        <div class="passage-box">
-          <h4>📄 Reading Passage</h4>
-          <div class="passage-text">
-            <p><strong>The Rise of Remote Work</strong></p>
-            <p>The COVID-19 pandemic fundamentally transformed the nature of work across the globe. Millions of employees who had previously commuted to offices found themselves working from home — a shift that, for many, became permanent even after restrictions lifted.</p>
-            <p>A 2023 survey by the International Labour Organization found that approximately 18% of global workers now work remotely at least part of the time, a figure that would have seemed extraordinary just a decade ago. Technology infrastructure — including high-speed internet, cloud computing, and video conferencing platforms — has been the backbone of this transition.</p>
-            <p>However, remote work is not without its critics. Research published in the Harvard Business Review suggests that employees working from home can experience feelings of isolation and reduced sense of belonging to their organizations. Collaboration on complex projects, some argue, remains most effective in person.</p>
-            <p>Economists debate whether remote work increases or decreases productivity. While some studies show a 13% productivity boost for remote call-center workers, others highlight the challenges of home environments with children, noise, and limited workspace.</p>
-          </div>
-        </div>
-        <div class="questions-box">
-          <div class="question-item">
-            <div class="q-num">Question 1</div>
-            <div class="q-text">According to the passage, what percentage of global workers work remotely at least part of the time?</div>
-            <div class="q-options">
-              <label class="q-opt"><input type="radio" name="q1" value="a"> A. 13%</label>
-              <label class="q-opt"><input type="radio" name="q1" value="b"> B. 18%</label>
-              <label class="q-opt"><input type="radio" name="q1" value="c"> C. 25%</label>
-              <label class="q-opt"><input type="radio" name="q1" value="d"> D. 30%</label>
-            </div>
-          </div>
-          <div class="question-item">
-            <div class="q-num">Question 2</div>
-            <div class="q-text">Which publication highlighted feelings of isolation among remote workers?</div>
-            <div class="q-options">
-              <label class="q-opt"><input type="radio" name="q2" value="a"> A. International Labour Organization</label>
-              <label class="q-opt"><input type="radio" name="q2" value="b"> B. The Economist</label>
-              <label class="q-opt"><input type="radio" name="q2" value="c"> C. Harvard Business Review</label>
-              <label class="q-opt"><input type="radio" name="q2" value="d"> D. Nature Journal</label>
-            </div>
-          </div>
-          <div class="question-item">
-            <div class="q-num">Question 3</div>
-            <div class="q-text">What productivity increase was noted for remote call-center workers in some studies?</div>
-            <div class="q-options">
-              <label class="q-opt"><input type="radio" name="q3" value="a"> A. 10%</label>
-              <label class="q-opt"><input type="radio" name="q3" value="b"> B. 13%</label>
-              <label class="q-opt"><input type="radio" name="q3" value="c"> C. 18%</label>
-              <label class="q-opt"><input type="radio" name="q3" value="d"> D. 20%</label>
-            </div>
-          </div>
-          <div class="score-reveal" id="readingScore">
-            <div style="font-size:.85rem;margin-bottom:.5rem">Your Score</div>
-            <strong id="readingScoreVal">0/3</strong>
-            <div style="font-size:.82rem;color:var(--gray);margin-top:.4rem" id="readingBand"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LISTENING TAB -->
-    <div id="tab-listening" style="display:none">
-      <div class="audio-player">
-        <h4>🎧 Section 1 — Conversation</h4>
-        <div class="title">A student enquiring about library membership</div>
-        <div class="audio-controls">
-          <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
-          <div class="progress-bar" onclick="seekAudio(event)">
-            <div class="progress-fill" id="audioProgress"></div>
-          </div>
-          <span class="time-display" id="audioTime">0:00 / 3:45</span>
-        </div>
-      </div>
-      <div style="background:var(--light);border-radius:10px;padding:1rem;margin-bottom:1.2rem;font-size:.83rem;color:var(--gray);display:flex;align-items:center;gap:.5rem">
-        ℹ️ In the real exam, you listen while answering. The audio plays once only.
-      </div>
-      <div class="questions-box">
-        <div class="question-item">
-          <div class="q-num">Question 1 — Form Completion</div>
-          <div class="q-text">Complete the form below. Write NO MORE THAN TWO WORDS for each answer.</div>
-          <div style="background:var(--light);border-radius:8px;padding:1rem;margin-top:.5rem;font-size:.85rem">
-            <table style="border:none">
-              <tr><td style="padding:.3rem .5rem;font-weight:600;border:none">Name:</td><td style="padding:.3rem .5rem;border:none"><input placeholder="Answer..." style="border:1px solid var(--border);border-radius:6px;padding:.3rem .6rem;font-size:.83rem" id="l1"></td></tr>
-              <tr><td style="padding:.3rem .5rem;font-weight:600;border:none">Membership type:</td><td style="padding:.3rem .5rem;border:none"><input placeholder="Answer..." style="border:1px solid var(--border);border-radius:6px;padding:.3rem .6rem;font-size:.83rem" id="l2"></td></tr>
-              <tr><td style="padding:.3rem .5rem;font-weight:600;border:none">Card number:</td><td style="padding:.3rem .5rem;border:none"><input placeholder="Answer..." style="border:1px solid var(--border);border-radius:6px;padding:.3rem .6rem;font-size:.83rem" id="l3"></td></tr>
-            </table>
-          </div>
-        </div>
-        <button class="btn btn-primary" onclick="alert('In the full version, your answers would be checked against the transcript. Keep practicing!')">Submit Listening Answers</button>
-      </div>
-    </div>
-
-    <!-- SPEAKING TAB -->
-    <div id="tab-speaking" style="display:none">
-      <div style="max-width:640px;margin:0 auto">
-        <div style="display:flex;gap:.5rem;margin-bottom:1.5rem;background:var(--light);border-radius:8px;padding:3px">
-          <button class="mode-btn active" onclick="setSpeakPart(1,this)" style="flex:1">Part 1</button>
-          <button class="mode-btn" onclick="setSpeakPart(2,this)" style="flex:1">Part 2</button>
-          <button class="mode-btn" onclick="setSpeakPart(3,this)" style="flex:1">Part 3</button>
-        </div>
-        <div class="speaking-card" id="speakingCard">
-          <div class="part-badge">Part 1 — Introduction & Interview</div>
-          <h3 style="margin-bottom:.8rem">Hometown & Where You Live</h3>
-          <div class="cue-card">
-            <h5>Answer these questions:</h5>
-            <ul>
-              <li>Where are you from originally?</li>
-              <li>Do you currently live in the same place you grew up?</li>
-              <li>What do you like most about where you live?</li>
-              <li>Has your hometown changed much in recent years?</li>
-            </ul>
-          </div>
-          <p style="font-size:.83rem;color:var(--gray);margin-bottom:.5rem">🎙️ Press record and speak your answers clearly</p>
-          <button class="record-btn idle" id="recordBtn" onclick="toggleRecord()">🎙️</button>
-          <div class="record-status" id="recordStatus">Press to start recording</div>
-          <button class="t-btn" onclick="nextSpeakQ()" style="margin:0 auto">Next Question →</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===== DASHBOARD PAGE ===== -->
-<div class="page" id="page-dashboard">
-  <div class="practice-hero">
-    <h1>📊 Your Progress Dashboard</h1>
-    <p>Track your band scores and improvement across all 4 skills</p>
-  </div>
-  <div class="practice-content">
-    <div class="dash-grid">
-      <div class="dash-card"><div class="label">Overall Band</div><div class="value">6.5</div><div class="change">↑ +0.5 this month</div></div>
-      <div class="dash-card"><div class="label">Tests Completed</div><div class="value">14</div><div class="change">↑ +3 this week</div></div>
-      <div class="dash-card"><div class="label">Study Streak</div><div class="value">7 days 🔥</div><div class="change">Personal best!</div></div>
-      <div class="dash-card"><div class="label">Words Written</div><div class="value">12,400</div><div class="change">↑ +2,100 this week</div></div>
-    </div>
-    <div class="skill-bar-section">
-      <h4>Skill Band Scores</h4>
-      <div class="skill-row">
-        <div class="skill-name">Reading</div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:82%;background:#2563eb"></div></div>
-        <div class="skill-score" style="color:#2563eb">6.5</div>
-      </div>
-      <div class="skill-row">
-        <div class="skill-name">Listening</div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:88%;background:#16a34a"></div></div>
-        <div class="skill-score" style="color:#16a34a">7.0</div>
-      </div>
-      <div class="skill-row">
-        <div class="skill-name">Writing</div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:75%;background:#9333ea"></div></div>
-        <div class="skill-score" style="color:#9333ea">6.0</div>
-      </div>
-      <div class="skill-row">
-        <div class="skill-name">Speaking</div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:80%;background:#ea580c"></div></div>
-        <div class="skill-score" style="color:#ea580c">6.5</div>
-      </div>
-    </div>
-    <div class="recent-table">
-      <h4>Recent Practice Sessions</h4>
-      <table>
-        <thead><tr><th>Date</th><th>Skill</th><th>Test Type</th><th>Band Score</th><th>Time Spent</th></tr></thead>
-        <tbody>
-          <tr><td>Apr 22, 2026</td><td>Writing</td><td>Task 2 — Academic</td><td><span class="band-pill band-6">6.5</span></td><td>38 min</td></tr>
-          <tr><td>Apr 21, 2026</td><td>Reading</td><td>Academic Passage 1</td><td><span class="band-pill band-7">7.0</span></td><td>18 min</td></tr>
-          <tr><td>Apr 21, 2026</td><td>Listening</td><td>Section 1 & 2</td><td><span class="band-pill band-7">7.5</span></td><td>22 min</td></tr>
-          <tr><td>Apr 20, 2026</td><td>Writing</td><td>Task 1 — Graph</td><td><span class="band-pill band-6">6.0</span></td><td>20 min</td></tr>
-          <tr><td>Apr 19, 2026</td><td>Speaking</td><td>Part 2 — Cue Card</td><td><span class="band-pill band-6">6.5</span></td><td>15 min</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="text-align:center;margin-top:2rem;padding:2rem;background:var(--blue-light);border-radius:12px">
-      <p style="font-weight:700;margin-bottom:.5rem">🎯 Want to unlock your full progress history and AI insights?</p>
-      <p style="font-size:.85rem;color:var(--gray);margin-bottom:1rem">Sign up for a free account to save your progress across sessions.</p>
-      <button class="btn btn-primary" onclick="showModal('signup')">Create Free Account</button>
-    </div>
-  </div>
-</div>
-
-<!-- SIGNUP MODAL -->
-<div class="modal-overlay" id="signupModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('signup')">✕</button>
-    <div style="font-size:1.5rem;margin-bottom:.5rem">🎓</div>
-    <h3>Create Your Free Account</h3>
-    <p>Join thousands of Nepali students practicing IELTS with EnGram</p>
-    <button class="google-btn">
-      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z"/></svg>
-      Continue with Google
-    </button>
-    <div class="divider">or</div>
-    <div class="form-group"><label>Full Name</label><input type="text" placeholder="Priya Shrestha"></div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
-    <div class="form-group"><label>Password</label><input type="password" placeholder="Create a password"></div>
-    <button class="btn btn-primary btn-full" onclick="closeModal('signup');alert('Account created! Welcome to EnGram 🎉')">Create Free Account</button>
-    <div class="switch-auth">Already have an account? <a onclick="closeModal('signup');showModal('login')">Log in</a></div>
-  </div>
-</div>
-
-<!-- LOGIN MODAL -->
-<div class="modal-overlay" id="loginModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('login')">✕</button>
-    <div style="font-size:1.5rem;margin-bottom:.5rem">👋</div>
-    <h3>Welcome Back</h3>
-    <p>Log in to continue your IELTS practice</p>
-    <button class="google-btn">
-      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z"/></svg>
-      Continue with Google
-    </button>
-    <div class="divider">or</div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
-    <div class="form-group"><label>Password</label><input type="password" placeholder="Your password"></div>
-    <button class="btn btn-primary btn-full" onclick="closeModal('login');alert('Logged in! Welcome back 🎉')">Log In</button>
-    <div class="switch-auth">Don't have an account? <a onclick="closeModal('login');showModal('signup')">Sign up free</a></div>
-  </div>
-</div>
-
-<script>
-// PAGE NAVIGATION
-function showPage(p){
-  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  window.scrollTo(0,0);
-  closeNav();
-}
-
-// NAV TOGGLE
-function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
-function closeNav(){document.getElementById('navLinks').classList.remove('open')}
-
-// TABS
-function switchTab(t){
-  ['writing','reading','listening','speaking'].forEach(s=>{
-    document.getElementById('tab-'+s).style.display = s===t?'block':'none';
-  });
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active', ['writing','reading','listening','speaking'][i]===t);
-  });
-  showPage('practice');
-  if(t==='reading') startTimer('readingTimer',60*60);
-  if(t==='writing') startTimer('writingTimer',40*60);
-}
-
-// MODALS
-function showModal(m){document.getElementById(m+'Modal').classList.add('show')}
-function closeModal(m){document.getElementById(m+'Modal').classList.remove('show')}
-document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show')}));
-
-// TIMER
-const timers = {};
-function startTimer(id, secs){
-  clearInterval(timers[id]);
-  let s = secs;
-  const el = document.getElementById(id);
-  if(!el) return;
-  function fmt(n){return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
-  el.textContent = fmt(s);
-  timers[id] = setInterval(()=>{
-    s--;
-    if(s<=0){clearInterval(timers[id]);el.textContent='00:00';el.classList.add('urgent');return}
-    el.textContent = fmt(s);
-    if(s<=300) el.classList.add('urgent'); else el.classList.remove('urgent');
-  },1000);
-}
-startTimer('writingTimer',40*60);
-
-// WORD COUNT
-function updateWordCount(t){
-  const words = t.value.trim().split(/\s+/).filter(w=>w.length>0).length;
-  document.getElementById('wordCount').textContent = words;
-  document.getElementById('wordProgress').style.width = Math.min(100,(words/250)*100)+'%';
-}
-
-// ESSAY SUBMIT (simulated AI feedback)
-function submitEssay(){
-  const essay = document.getElementById('essayArea').value.trim();
-  if(essay.length < 50){alert('Please write at least a few sentences before requesting feedback.');return;}
-  const words = essay.split(/\s+/).filter(w=>w).length;
-  const base = Math.min(8.5, 4.5 + (words/300));
-  const overall = Math.round(base*2)/2;
-  document.getElementById('overallBand').textContent = overall;
-  document.getElementById('taScore').textContent = (overall - 0.5).toFixed(1);
-  document.getElementById('ccScore').textContent = (overall + 0.5).toFixed(1);
-  document.getElementById('lrScore').textContent = overall.toFixed(1);
-  document.getElementById('grScore').textContent = overall.toFixed(1);
-  document.getElementById('feedbackPanel').classList.add('show');
-  document.getElementById('feedbackPanel').scrollIntoView({behavior:'smooth'});
-}
-
-function resetEssay(){
-  document.getElementById('essayArea').value='';
-  document.getElementById('wordCount').textContent='0';
-  document.getElementById('wordProgress').style.width='0%';
-  document.getElementById('feedbackPanel').classList.remove('show');
-  startTimer('writingTimer',40*60);
-}
-
-function setMode(m, btn){
-  document.querySelectorAll('.mode-toggle .mode-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const ta = document.getElementById('essayArea');
-  if(m==='exam'){ta.spellcheck=false;ta.autocomplete='off';ta.style.background='#fafafa';}
-  else{ta.spellcheck=true;ta.style.background='#fff';}
-}
-
-// PROMPTS
-const prompts = {
-  tech: {type:'Task 2 — Academic',text:'<p><strong>Some people believe that technology makes life easier. Others think it creates more problems than it solves.</strong></p><p>Discuss both views and give your own opinion.</p>'},
-  environment: {type:'Task 2 — Academic',text:'<p><strong>Many cities around the world are growing rapidly. What problems does urban growth cause, and how can they be solved?</strong></p><p>Give reasons and include examples from your own knowledge.</p>'},
-  education: {type:'Task 2 — Academic',text:'<p><strong>Some people think that universities should only offer courses that lead to employment. Others believe the purpose of university is broader.</strong></p><p>Discuss both views and give your opinion.</p>'},
-  globalization: {type:'Task 2 — Academic',text:'<p><strong>Globalization has made the world a smaller place. However, it has also caused many local cultures to disappear.</strong></p><p>Do you think the advantages of globalization outweigh the disadvantages?</p>'}
-};
-function changePrompt(k){
-  const p = prompts[k];
-  document.querySelector('.prompt-type').textContent = p.type;
-  document.querySelector('.prompt-text').innerHTML = p.text + '<p style="margin-top:1rem;font-size:.82rem;color:var(--gray)"><em>Give reasons for your answer and include any relevant examples. Write at least 250 words.</em></p>';
-  resetEssay();
-}
-
-// READING SCORING
-const answers = {q1:'b',q2:'c',q3:'b'};
-function scoreReading(){
-  let score=0;
-  ['q1','q2','q3'].forEach(q=>{
-    const sel = document.querySelector(`input[name="${q}"]:checked`);
-    document.querySelectorAll(`input[name="${q}"]`).forEach(i=>{
-      const opt = i.closest('.q-opt');
-      if(i.value===answers[q]) opt.classList.add('correct');
-      else if(sel&&i.value===sel.value&&sel.value!==answers[q]) opt.classList.add('wrong');
+    // Simple Word Counter
+    document.querySelector('textarea')?.addEventListener('input', function() {
+      const count = this.value.trim().split(/\s+/).filter(w => w).length;
+      const el = document.getElementById('wordCount');
+      if(el) el.textContent = `Words: ${count}`;
     });
-    if(sel&&sel.value===answers[q]) score++;
-  });
-  const sr = document.getElementById('readingScore');
-  document.getElementById('readingScoreVal').textContent = score+'/3';
-  const bands=['5.0','6.5','7.5','8.0'];
-  document.getElementById('readingBand').textContent = 'Estimated Band: '+bands[score];
-  sr.classList.add('show');
-  sr.scrollIntoView({behavior:'smooth'});
-}
-
-// AUDIO PLAYER (simulated)
-let playing=false, audioProgress=0, audioInterval;
-function togglePlay(){
-  playing=!playing;
-  document.getElementById('playBtn').textContent = playing?'⏸':'▶';
-  if(playing){
-    audioInterval=setInterval(()=>{
-      audioProgress+=100/(225);
-      if(audioProgress>=100){audioProgress=100;playing=false;document.getElementById('playBtn').textContent='▶';clearInterval(audioInterval);}
-      document.getElementById('audioProgress').style.width=audioProgress+'%';
-      const sec=Math.round((audioProgress/100)*225);
-      document.getElementById('audioTime').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')} / 3:45`;
-    },1000);
-  } else clearInterval(audioInterval);
-}
-function seekAudio(e){
-  const bar=e.currentTarget;
-  audioProgress=(e.offsetX/bar.offsetWidth)*100;
-  document.getElementById('audioProgress').style.width=audioProgress+'%';
-}
-
-// SPEAKING
-let recording=false, recInterval;
-function toggleRecord(){
-  recording=!recording;
-  const btn=document.getElementById('recordBtn');
-  const status=document.getElementById('recordStatus');
-  if(recording){
-    btn.classList.remove('idle');btn.classList.add('recording');
-    status.textContent='🔴 Recording... speak clearly';
-    let secs=0;
-    recInterval=setInterval(()=>{secs++;status.textContent=`🔴 Recording... ${secs}s`;},1000);
-  } else {
-    btn.classList.remove('recording');btn.classList.add('idle');
-    clearInterval(recInterval);
-    status.textContent='✅ Recording saved! Press again to re-record.';
-  }
-}
-const parts = [
-  {badge:'Part 1 — Introduction',title:'Hometown & Where You Live',items:['Where are you from originally?','Do you currently live in the same place you grew up?','What do you like most about where you live?','Has your hometown changed much in recent years?']},
-  {badge:'Part 2 — Long Turn',title:'Describe a skill you would like to learn',items:['What the skill is','Why you want to learn it','How you would learn it','And explain how this skill would benefit you']},
-  {badge:'Part 3 — Discussion',title:'Skills and Education',items:['Do you think schools teach students useful life skills?','Should practical skills be valued more than academic qualifications?','How has technology changed the skills people need for work?','What skills do you think will be most important in the future?']}
-];
-function setSpeakPart(n,btn){
-  document.querySelectorAll('#tab-speaking .mode-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const p=parts[n-1];
-  const card=document.getElementById('speakingCard');
-  card.querySelector('.part-badge').textContent=p.badge;
-  card.querySelector('h3').textContent=p.title;
-  card.querySelector('.cue-card ul').innerHTML=p.items.map(i=>`<li>${i}</li>`).join('');
-  recording=false;
-  document.getElementById('recordBtn').className='record-btn idle';
-  document.getElementById('recordStatus').textContent='Press to start recording';
-}
-function nextSpeakQ(){
-  const active=document.querySelector('#tab-speaking .mode-btn.active');
-  const btns=[...document.querySelectorAll('#tab-speaking .mode-btn')];
-  const idx=btns.indexOf(active);
-  if(idx<2) btns[idx+1].click();
-}
-</script>
+  </script>
 </body>
 </html>
