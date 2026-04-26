@@ -147,12 +147,80 @@
   .logo img { height: 55px; }
 }
 
-@media (max-width: 480px) {
-  .hero h1 { font-size: 1.6rem; }
-  h2 { font-size: 1.4rem; }
-  .logo img { height: 45px; }
-  nav a { font-size: 0.85rem; }
-  .btn { padding: 10px 16px; font-size: 0.9rem; }
+/* =========================================
+   HEADER STYLES (Desktop Default)
+   ========================================= */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;             /* Keeps items in a row */
+  justify-content: space-between; /* Spreads them out */
+  align-items: center;       /* Centers them vertically */
+  height: 80px;              /* Fixed height for desktop */
+}
+
+.logo img {
+  height: 60px;              /* Logo size for desktop */
+  width: auto;
+}
+
+nav ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  font-weight: 600;
+  color: #1E3A8A;
+  text-decoration: none;
+}
+
+.btn {
+  background: #14B8A6;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+}
+
+/* =========================================
+   MOBILE STYLES (Only for phones/tablets)
+   ========================================= */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;  /* Stacks items vertically */
+    height: auto;            /* Allows height to grow */
+    padding: 15px;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  nav a {
+    font-size: 0.95rem;
+  }
+
+  /* Make button full width on mobile only */
+  .nav-container > .btn {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+  }
 }
   </style>
 </head>
