@@ -126,15 +126,25 @@
     @media (max-width: 768px) {
   .hero h1 { font-size: 2rem; }
   .hero p { font-size: 1rem; }
-  .nav-container { flex-direction: column; height: auto; padding: 15px; gap: 15px; }
-  nav ul { gap: 10px; flex-wrap: wrap; justify-content: center; }
-  nav a { font-size: 0.9rem; }
+  
+  /* This forces the header to stack vertically on mobile */
+  .nav-container { 
+    flex-direction: column; 
+    height: auto; 
+    padding: 15px; 
+    gap: 15px; 
+    text-align: center;
+  }
+  
+  nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+  nav a { font-size: 0.95rem; font-weight: 600; }
+  
   .dashboard-grid { grid-template-columns: 1fr; }
   .modules-grid, .features-grid, .pricing-grid, .stats { grid-template-columns: 1fr; }
-  .tool-interface > div { flex-direction: column; }
+  
   .table-container { overflow-x: auto; }
   table { min-width: 600px; }
-  .logo img { height: 50px; }
+  .logo img { height: 55px; }
 }
 
 @media (max-width: 480px) {
@@ -150,7 +160,7 @@
 
 <header style="background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100;">
   <!-- This container forces everything to be in one row and centered -->
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 80px;">
+  <div class="nav-container">
     
     <!-- 1. LOGO (Set to 50px height so it fits perfectly) -->
     <a href="#home" style="display: flex; align-items: center;">
